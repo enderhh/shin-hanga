@@ -36,21 +36,18 @@ const locationData = {
     time: 'Early spring · 6:18 AM',
     description: 'A single train waits beyond the mist. Someone’s departure has been carefully crossed out.',
     weather: 'Misty dawn',
-    player: { left: 55, bottom: 8, scale: 0.82 },
   },
   lanes: {
     label: 'Fishing lanes',
     time: 'Early spring · 7:03 AM',
     description: 'Rain darkens the lanes. Doors open just far enough for a rumour to escape.',
     weather: 'Soft rain',
-    player: { left: 50, bottom: 6, scale: 0.96 },
   },
   seawall: {
     label: 'Seawall',
     time: 'Early spring · 7:46 AM',
     description: 'The harbour carries a message farther than anyone wants it to.',
     weather: 'A break in the clouds',
-    player: { left: 48, bottom: 10, scale: 0.86 },
   },
 };
 
@@ -116,20 +113,26 @@ const clues = {
 
 const sceneInteractions = {
   station: [
-    { id: 'timetable', label: 'Timetable', aria: 'Inspect the altered timetable', approach: { left: 55, bottom: 10, scale: 0.74 } },
-    { id: 'porter', label: 'Porter', aria: 'Speak to the station porter', approach: { left: 47, bottom: 12, scale: 0.7 } },
-    { id: 'ticket', label: 'Ticket', aria: 'Inspect the ticket on the bench', approach: { left: 72, bottom: 8, scale: 0.78 } },
+    { id: 'timetable', label: 'Timetable', aria: 'Inspect the altered timetable', stand: { left: 53, bottom: 21 } },
+    { id: 'porter', label: 'Porter', aria: 'Speak to the station porter', stand: { left: 42, bottom: 23 } },
+    { id: 'ticket', label: 'Ticket', aria: 'Inspect the ticket on the bench', stand: { left: 65, bottom: 18 } },
   ],
   lanes: [
-    { id: 'ledger', label: 'Ledger', aria: 'Inspect the delivery ledger', approach: { left: 31, bottom: 8, scale: 0.9 } },
-    { id: 'net', label: 'Net maker', aria: 'Inspect the net maker’s doorway', approach: { left: 49, bottom: 10, scale: 0.84 } },
-    { id: 'tea', label: 'Tea counter', aria: 'Inspect the tea counter', approach: { left: 69, bottom: 8, scale: 0.9 } },
+    { id: 'ledger', label: 'Ledger', aria: 'Inspect the delivery ledger', stand: { left: 42, bottom: 22 } },
+    { id: 'net', label: 'Net maker', aria: 'Inspect the net maker’s doorway', stand: { left: 48, bottom: 17 } },
+    { id: 'tea', label: 'Tea counter', aria: 'Inspect the tea counter', stand: { left: 59, bottom: 15 } },
   ],
   seawall: [
-    { id: 'keeper', label: 'Shelter', aria: 'Inspect the seawall shelter', approach: { left: 43, bottom: 14, scale: 0.74 } },
-    { id: 'signal', label: 'Signal lamp', aria: 'Inspect the old seawall signal lamp', approach: { left: 60, bottom: 18, scale: 0.68 } },
-    { id: 'tide', label: 'Tide steps', aria: 'Inspect the tide steps', approach: { left: 82, bottom: 12, scale: 0.8 } },
+    { id: 'keeper', label: 'Shelter', aria: 'Inspect the seawall shelter', stand: { left: 62, bottom: 25 } },
+    { id: 'signal', label: 'Signal lamp', aria: 'Inspect the old seawall signal lamp', stand: { left: 54, bottom: 22 } },
+    { id: 'tide', label: 'Tide steps', aria: 'Inspect the tide steps', stand: { left: 77, bottom: 24 } },
   ],
+};
+
+const sceneRestPosition = {
+  station: { left: 52, bottom: 19 },
+  lanes:   { left: 50, bottom: 16 },
+  seawall: { left: 57, bottom: 20 },
 };
 
 const hotspotButtons = [...document.querySelectorAll('.hotspot')];
@@ -143,13 +146,24 @@ function showToast(message) {
   showToast.timeout = window.setTimeout(() => toast.classList.remove('is-visible'), 2400);
 }
 
-function setPlayerPosition(left, bottom, explicitScale) {
-  const safeLeft = Math.max(3, Math.min(91, left));
-  const safeBottom = Math.max(2, Math.min(28, bottom));
-  const scale = explicitScale ?? Math.max(0.66, Math.min(0.96, 1.08 - safeBottom * 0.02));
+const WALK_MIN_BOTTOM = 6;
+const WALK_MAX_BOTTOM = 32;
+const WALK_MIN_LEFT = 6;
+const WALK_MAX_LEFT = 92;
+
+function scaleForBottom(bottomPct) {
+  const t = (bottomPct - WALK_MIN_BOTTOM) / (WALK_MAX_BOTTOM - WALK_MIN_BOTTOM);
+  const clamped = Math.max(0, Math.min(1, t));
+  return 1.05 - clamped * 0.5; // 1.05 at the front, 0.55 at the back
+}
+
+function setPlayerPosition(left, bottom) {
+  const safeLeft = Math.max(WALK_MIN_LEFT, Math.min(WALK_MAX_LEFT, left));
+  const safeBottom = Math.max(WALK_MIN_BOTTOM, Math.min(WALK_MAX_BOTTOM, bottom));
+  const scale = scaleForBottom(safeBottom);
   player.style.left = `${safeLeft}%`;
   player.style.bottom = `${safeBottom}%`;
-  player.style.setProperty('--player-scale', scale.toFixed(2));
+  player.style.setProperty('--player-scale', scale.toFixed(3));
 }
 
 function showDestination(point) {
@@ -173,8 +187,9 @@ function updateQuestPrompt() {
 function travelToInteraction(interaction) {
   window.clearTimeout(interactionTimer);
   closeDetail();
-  setPlayerPosition(interaction.approach.left, interaction.approach.bottom, interaction.approach.scale);
-  showDestination({ x: interaction.approach.left, y: 100 - interaction.approach.bottom });
+  const target = interaction.stand;
+  setPlayerPosition(target.left, target.bottom);
+  showDestination({ x: target.left, y: 100 - target.bottom });
   moveHint.textContent = `You walk over to the ${interaction.label.toLowerCase()}.`;
   interactionTimer = window.setTimeout(() => {
     openDetail(interaction.id);
@@ -252,7 +267,8 @@ function changeScene(nextScene) {
   sceneTime.textContent = data.time;
   sceneDescription.textContent = data.description;
   weatherReadout.textContent = state.weatherCleared ? 'Clearing light' : data.weather;
-  setPlayerPosition(data.player.left, data.player.bottom, data.player.scale);
+  const rest = sceneRestPosition[nextScene];
+  setPlayerPosition(rest.left, rest.bottom);
   sceneInteractions[nextScene].forEach((interaction, index) => {
     const hotspot = hotspotButtons[index];
     hotspot.dataset.clue = interaction.id;
@@ -307,4 +323,4 @@ journalPanel.addEventListener('click', (event) => {
 
 updateJournal();
 updateQuestPrompt();
-setPlayerPosition(locationData.station.player.left, locationData.station.player.bottom, locationData.station.player.scale);
+setPlayerPosition(sceneRestPosition.station.left, sceneRestPosition.station.bottom);

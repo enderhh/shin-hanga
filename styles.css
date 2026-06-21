@@ -302,7 +302,7 @@ h1 {
   padding: 0;
   cursor: pointer;
   background: transparent;
-  transition: left 800ms cubic-bezier(.2,.8,.2,1), bottom 800ms cubic-bezier(.2,.8,.2,1), transform 180ms ease;
+  transition: left 800ms cubic-bezier(.2,.8,.2,1), bottom 800ms cubic-bezier(.2,.8,.2,1), transform 800ms cubic-bezier(.2,.8,.2,1);
 }
 
 .player:hover { transform: translateY(-2px); }
@@ -355,7 +355,7 @@ h1 {
 
 .toast { position: fixed; z-index: 100; bottom: 22px; left: 50%; max-width: calc(100% - 28px); padding: 10px 14px; color: var(--cream); background: rgba(29, 42, 50, 0.92); font-family: Arial, sans-serif; font-size: 0.78rem; text-align: center; opacity: 0; pointer-events: none; transform: translate(-50%, 24px); transition: opacity 180ms ease, transform 180ms ease; }.toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
 
-/* Alternate location artwork */
+/* Legacy generated scene layers, kept hidden by the painted image plates. */
 .scene--lanes { background: #75919a; }.scene--lanes .sky { background: linear-gradient(#9eb1ac 0%, #78949a 53%, #4a6d74 100%); }.scene--lanes .sun-disc { top: 10%; right: 16%; opacity: 0.18; background: #d7d7bd; }.scene--lanes::before { z-index: 2; right: 0; bottom: 0; left: 0; height: 49%; background: #7d5b47; clip-path: polygon(0 43%, 21% 26%, 42% 41%, 69% 18%, 100% 39%, 100% 100%, 0 100%); }.scene--lanes::after { z-index: 3; right: 0; bottom: 0; left: 0; height: 48%; background: linear-gradient(117deg, transparent 0 42%, #b08c6b 43% 60%, transparent 61%); opacity: .75; }.scene--lanes .station-hills { top: 23%; left: -4%; width: 110%; height: 48%; background: #526c64; clip-path: polygon(0 42%, 22% 20%, 36% 47%, 50% 15%, 71% 39%, 83% 23%, 100% 43%, 100% 100%, 0 100%); }.scene--lanes .station-roof { top: 28%; left: 5%; width: 34%; height: 30%; background: #2d4845; clip-path: polygon(0 34%, 75% 0, 100% 24%, 100% 100%, 0 100%); }.scene--lanes .station-building { top: 38%; left: 10%; width: 28%; height: 25%; background: #87634e; }.scene--lanes .window { top: 35%; }.scene--lanes .window--one { left: 20%; }.scene--lanes .window--two { left: 60%; }.scene--lanes .window--three { display: none; }.scene--lanes .rail-lines, .scene--lanes .platform, .scene--lanes .platform-lamp, .scene--lanes .paper-poster, .scene--lanes .sea-glimpse { display: none; }.scene--lanes .rain { opacity: .42; }.scene--lanes .player { bottom: 12%; left: 51%; }.scene--lanes .hotspot--timetable { top: 45%; left: 17%; }.scene--lanes .hotspot--porter { top: 62%; left: 58%; }.scene--lanes .hotspot--ticket { right: 12%; bottom: 20%; }
 
 .scene--seawall { background: #657e94; }.scene--seawall .sky { background: linear-gradient(#e1d6ba 0%, #b3b9ae 33%, #718ca0 72%, #436a80 100%); }.scene--seawall .sun-disc { top: 17%; right: 12%; opacity: .88; background: #d67f52; }.scene--seawall::before { z-index: 4; right: 0; bottom: 0; left: 0; height: 42%; background: #6b756f; clip-path: polygon(0 46%, 100% 0, 100% 100%, 0 100%); }.scene--seawall::after { z-index: 5; right: -4%; bottom: 9%; left: -4%; height: 23%; background: #9d927d; clip-path: polygon(0 58%, 100% 0, 100% 45%, 0 100%); }.scene--seawall .station-hills { top: 28%; left: -4%; height: 32%; background: #3f5e5e; clip-path: polygon(0 67%, 20% 22%, 32% 56%, 54% 6%, 73% 55%, 87% 25%, 100% 55%, 100% 100%, 0 100%); }.scene--seawall .station-roof { display: none; }.scene--seawall .station-building { top: 41%; left: 15%; width: 15%; height: 18%; background: #6d5749; }.scene--seawall .station-building::before { position: absolute; top: -23px; left: -6px; width: calc(100% + 12px); height: 27px; background: #354b48; clip-path: polygon(50% 0, 100% 100%, 0 100%); content: ""; }.scene--seawall .window { display: none; }.scene--seawall .rail-lines, .scene--seawall .platform, .scene--seawall .paper-poster { display: none; }.scene--seawall .platform-lamp { right: 30%; bottom: 24%; height: 35%; }.scene--seawall .sea-glimpse { display: block; top: 53%; right: 0; width: 100%; height: 30%; background: repeating-linear-gradient(173deg, #759aad 0 18px, #50758b 19px 21px, #7195a5 22px 39px); clip-path: none; }.scene--seawall .rain { display: none; }.scene--seawall .player { bottom: 18%; left: 58%; }.scene--seawall .hotspot--timetable { top: 46%; left: 13%; }.scene--seawall .hotspot--porter { top: 35%; left: 48%; }.scene--seawall .hotspot--ticket { right: 11%; bottom: 25%; }
@@ -457,11 +457,15 @@ h1 {
 .hotspot { z-index: 40; width: 114px; height: 32px; border: 1px solid rgba(245,238,220,.58); color: var(--cream); background: rgba(26, 45, 48, .78); box-shadow: 0 7px 18px rgba(0,0,0,.18); }
 .hotspot-ring { display: none; }
 .hotspot:hover { background: var(--warm); }
-.hotspot--timetable { top: 52%; left: 40%; }
-.hotspot--porter { top: 48%; left: 73%; }
-.hotspot--ticket { right: 17%; bottom: 24%; }
-.scene--lanes .hotspot--timetable { top: 48%; left: 16%; }.scene--lanes .hotspot--porter { top: 60%; left: 50%; }.scene--lanes .hotspot--ticket { right: 12%; bottom: 22%; }
-.scene--seawall .hotspot--timetable { top: 48%; left: 15%; }.scene--seawall .hotspot--porter { top: 45%; left: 58%; }.scene--seawall .hotspot--ticket { right: 12%; bottom: 27%; }
+.hotspot--timetable { top: 52%; left: 43%; right: auto; bottom: auto; }
+.hotspot--porter { top: 57%; left: 35%; right: auto; bottom: auto; }
+.hotspot--ticket { top: 55%; left: 61%; right: auto; bottom: auto; }
+.scene--lanes .hotspot--timetable { top: 49%; left: 28%; right: auto; bottom: auto; }
+.scene--lanes .hotspot--porter { top: 50%; left: 12%; right: auto; bottom: auto; }
+.scene--lanes .hotspot--ticket { top: 48%; left: 68%; right: auto; bottom: auto; }
+.scene--seawall .hotspot--timetable { top: 44%; left: 65%; right: auto; bottom: auto; }
+.scene--seawall .hotspot--porter { top: 39%; left: 51%; right: auto; bottom: auto; }
+.scene--seawall .hotspot--ticket { top: 57%; left: 82%; right: auto; bottom: auto; }
 
 .player {
   z-index: 21;
@@ -471,10 +475,10 @@ h1 {
   height: 214px;
   background: center bottom / contain no-repeat url("assets/player-traveler.png");
   filter: drop-shadow(2px 8px 3px rgba(0,0,0,.25));
-  transform: scale(var(--player-scale, .7));
+  transform: translateX(-50%) scale(var(--player-scale, .7));
   transform-origin: center bottom;
 }
-.player:hover { transform: translateY(-2px) scale(var(--player-scale, .7)); }
+.player:hover { transform: translateX(-50%) translateY(-2px) scale(var(--player-scale, .7)); }
 .player-head, .player-coat, .player-umbrella { display: none; }
 .destination-marker {
   position: absolute;
@@ -535,18 +539,65 @@ h1 {
   .game-frame, .scene { min-height: 600px; height: 100vh; }.top-bar { padding: 18px 20px; }.top-actions { gap: 8px; }.location-nav { top: 77px; left: 12px; gap: 2px; }.location-button { padding: 6px 8px; font-size: .59rem; }.story-strip { right: 16px; bottom: 112px; width: calc(100% - 32px); }.scene-caption { min-height: 98px; padding: 16px 20px; }.scene-caption > p { display: none; }.detail-panel { right: 0; bottom: 0; width: 100%; }.hotspot { opacity: 1; transform: none; width: 98px; }.move-hint { display: none; }
 }
 
-/* ---- Layout fixes: overlap cleanup (June 2026) ---- */
+/* ---- Layout rework: text panels move to top-right (June 2026) ---- */
+.story-strip {
+  top: 78px;
+  right: clamp(22px, 4vw, 58px);
+  bottom: auto;
+  left: auto;
+  width: min(360px, calc(100% - 44px));
+  padding: 11px 14px;
+  border-left: 2px solid var(--warm);
+  background: rgba(24, 39, 44, 0.78);
+  backdrop-filter: blur(6px);
+  font-size: 0.84rem;
+}
+.story-strip p { line-height: 1.35; }
 
-/* 1. Move the move-hint to the left, above the scene-caption, so it never
-      collides with the story-strip / detail-panel column on the right. */
-.move-hint {
-  right: auto;
-  bottom: 122px;
-  left: clamp(22px, 4vw, 58px);
+.scene-caption {
+  top: 198px;
+  right: clamp(22px, 4vw, 58px);
+  bottom: auto;
+  left: auto;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: min(360px, calc(100% - 44px));
+  min-height: 0;
+  padding: 14px 16px;
+  border-left: 2px solid rgba(245, 238, 220, 0.35);
+  background: rgba(24, 39, 44, 0.62);
+  backdrop-filter: blur(8px);
+}
+.scene-caption h2 { font-size: 1.25rem; }
+.scene-caption > p { max-width: none; font-size: 0.82rem; line-height: 1.45; }
+
+.detail-panel {
+  top: 198px;
+  right: clamp(22px, 4vw, 58px);
+  bottom: auto;
+  width: min(382px, calc(100% - 44px));
 }
 
-/* 2. Resting state for hotspots on desktop: a quiet ring so players can see
-      where interactions live before they mouse over. Hover/focus stays vivid. */
+.game-shell:has(.detail-panel.is-open) .story-strip,
+.game-shell:has(.detail-panel.is-open) .scene-caption {
+  opacity: 0;
+  pointer-events: none;
+}
+.story-strip,
+.scene-caption {
+  transition: opacity 220ms ease;
+}
+
+.move-hint {
+  right: auto;
+  bottom: 22px;
+  left: clamp(22px, 4vw, 58px);
+  max-width: 240px;
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+}
+
 @media (hover: hover) and (min-width: 651px) {
   .hotspot {
     opacity: 0.55;
@@ -564,37 +615,19 @@ h1 {
   .hotspot:hover { background: var(--warm); }
 }
 
-/* 3. When the detail panel is open, fade the story strip and scene caption so
-      the right-side stack doesn't fight itself. The detail panel takes focus.
-      Note: .detail-panel is a sibling of .game-frame inside .game-shell, so
-      we scope :has() at the .game-shell level. */
-.game-shell:has(.detail-panel.is-open) .story-strip,
-.game-shell:has(.detail-panel.is-open) .scene-caption > p {
-  opacity: 0;
-  pointer-events: none;
-}
-.story-strip,
-.scene-caption > p {
-  transition: opacity 220ms ease;
-}
-
-/* 4. Reposition the right-side hotspot on each scene so it does not sit
-      underneath the detail panel's footprint (right column, bottom 140px+). */
-.hotspot--ticket { right: 18%; bottom: 42%; }
-.scene--lanes .hotspot--ticket { right: 14%; bottom: 44%; }
-.scene--seawall .hotspot--ticket { right: 13%; bottom: 46%; }
-
-/* 5. Tighten the move-hint typography so it reads as a quiet caption. */
-.move-hint {
-  max-width: 240px;
-  font-size: 0.7rem;
-  letter-spacing: 0.02em;
-}
-
 @media (max-width: 650px) {
-  /* On mobile the detail panel is full-width at the bottom; nothing else
-     overlaps it, so we keep the existing mobile rules above untouched. */
-  .hotspot--ticket,
-  .scene--lanes .hotspot--ticket,
-  .scene--seawall .hotspot--ticket { bottom: 22%; }
+  .story-strip {
+    top: auto;
+    bottom: 112px;
+    right: 16px;
+    width: calc(100% - 32px);
+  }
+  .scene-caption {
+    position: static;
+    width: 100%;
+    border-left: 0;
+    background: linear-gradient(transparent, rgba(14, 28, 34, 0.84) 48%);
+  }
+  .detail-panel { right: 0; bottom: 0; width: 100%; }
+  .move-hint { display: none; }
 }
