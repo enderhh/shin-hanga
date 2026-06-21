@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A small playable point-and-click mystery set on a fictional 1920s coastal rail line."
+    />
+    <title>The Coastal Line — Game Preview</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="game-shell" aria-labelledby="game-title">
+      <section class="game-frame" aria-label="The Coastal Line game preview">
+        <header class="top-bar">
+          <div class="brand-lockup">
+            <p class="eyebrow">A quiet coastal mystery</p>
+            <h1 id="game-title">The Coastal Line</h1>
+          </div>
+          <div class="top-actions">
+            <p class="weather-readout" id="weather-readout" aria-live="polite">Misty dawn</p>
+            <button class="icon-button journal-button" id="journal-button" aria-haspopup="dialog" aria-controls="journal-panel">
+              Journal <span id="journal-count" aria-label="zero clues">0</span>
+            </button>
+          </div>
+        </header>
+
+        <section class="story-strip" aria-live="polite">
+          <span class="story-mark" aria-hidden="true"></span>
+          <p id="objective-text">Find out why the morning train left one passenger behind.</p>
+          <button class="quiet-button" id="weather-button" type="button">Wait for the weather</button>
+        </section>
+
+        <nav class="location-nav" aria-label="Town locations">
+          <button class="location-button is-active" data-scene-target="station" type="button">Station</button>
+          <button class="location-button" data-scene-target="lanes" type="button">Fishing lanes</button>
+          <button class="location-button" data-scene-target="seawall" type="button">Seawall</button>
+        </nav>
+
+        <section class="scene scene--station" id="scene" data-scene="station" aria-label="Station platform, misty dawn">
+          <div class="scene-plate" aria-hidden="true"></div>
+          <svg class="scene-art" viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <linearGradient id="stationSky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#91a5a2"/><stop offset="47%" stop-color="#b7c2b7"/><stop offset="100%" stop-color="#d2c89f"/>
+              </linearGradient>
+              <linearGradient id="rainSky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#788e92"/><stop offset="58%" stop-color="#acb9ad"/><stop offset="100%" stop-color="#637e81"/>
+              </linearGradient>
+              <linearGradient id="eveningSky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#51667a"/><stop offset="46%" stop-color="#c38b6e"/><stop offset="100%" stop-color="#e2c58b"/>
+              </linearGradient>
+              <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#6f9298"/><stop offset="100%" stop-color="#305d70"/>
+              </linearGradient>
+              <linearGradient id="platformLight" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#d7caab"/><stop offset="100%" stop-color="#82796c"/>
+              </linearGradient>
+              <filter id="soften"><feGaussianBlur stdDeviation="11"/></filter>
+              <pattern id="rainLines" width="36" height="50" patternUnits="userSpaceOnUse" patternTransform="rotate(12)">
+                <line x1="0" y1="0" x2="0" y2="24" stroke="#e9e5cd" stroke-width="2" opacity=".35"/>
+              </pattern>
+            </defs>
+
+            <g class="art art--station">
+              <rect width="1440" height="760" fill="url(#stationSky)"/>
+              <ellipse cx="1140" cy="128" rx="95" ry="95" fill="#ede0ad" opacity=".72"/>
+              <path d="M0 382 L155 285 L290 348 L430 229 L602 365 L775 250 L910 344 L1060 202 L1215 354 L1440 266 L1440 526 L0 526Z" fill="#55726f" opacity=".82"/>
+              <path d="M0 421 L208 343 L387 405 L570 306 L742 428 L930 337 L1100 410 L1283 324 L1440 381 L1440 535 L0 535Z" fill="#6d8986" opacity=".75"/>
+              <rect y="435" width="1440" height="166" fill="url(#sea)"/>
+              <path d="M0 490 C150 470 276 510 442 491 S747 472 918 501 S1208 472 1440 496" fill="none" stroke="#b1c7bd" stroke-width="4" opacity=".58"/>
+              <path d="M0 522 C170 498 318 538 515 515 S848 501 1010 533 S1253 502 1440 524" fill="none" stroke="#d6d5ba" stroke-width="3" opacity=".42"/>
+              <path d="M0 373 L0 610 L422 531 L422 448 L232 391Z" fill="#354b4a"/>
+              <path d="M0 405 L0 615 L438 536 L438 490 L230 427Z" fill="#87664e"/>
+              <path d="M0 400 L214 282 L503 389 L503 421 L237 356 L0 478Z" fill="#283d40"/>
+              <path d="M0 465 L196 391 L395 450 L395 465 L206 416 L0 507Z" fill="#d7c9a9" opacity=".6"/>
+              <g fill="#d9c89f"><rect x="87" y="441" width="58" height="47"/><rect x="181" y="412" width="52" height="47"/><rect x="281" y="442" width="57" height="48"/></g>
+              <g fill="#36545c"><rect x="95" y="448" width="42" height="31"/><rect x="189" y="419" width="36" height="31"/><rect x="289" y="449" width="41" height="32"/></g>
+              <path d="M0 571 L812 480 L1440 546 L1440 760 L0 760Z" fill="url(#platformLight)"/>
+              <path d="M0 605 L800 512 L1440 572" fill="none" stroke="#273841" stroke-width="7" opacity=".72"/>
+              <path d="M240 760 L883 515 M412 760 L998 531 M575 760 L1112 548" fill="none" stroke="#354047" stroke-width="13" opacity=".9"/>
+              <path d="M196 760 L847 509 M355 760 L966 526 M518 760 L1080 542" fill="none" stroke="#c4b896" stroke-width="5" opacity=".75"/>
+              <g stroke="#654b3a" stroke-width="12" opacity=".7"><path d="M300 678 L364 651"/><path d="M427 632 L489 608"/><path d="M557 583 L616 562"/><path d="M684 541 L734 522"/></g>
+              <g transform="translate(1105 238)"><path d="M0 0 V312" stroke="#263b40" stroke-width="10"/><path d="M-28 22 Q0 -18 28 22 L23 52 H-23Z" fill="#2f4548"/><path d="M-14 29 H14 V46 H-14Z" fill="#e8b26a"/><circle cx="0" cy="38" r="38" fill="#e8b26a" opacity=".13" filter="url(#soften)"/></g>
+              <g transform="translate(625 418)"><rect width="47" height="70" fill="#d7c69d" transform="rotate(-3)"/><path d="M10 18 H36 M10 31 H36 M10 44 H30" stroke="#9b5f46" stroke-width="4"/></g>
+              <rect width="1440" height="760" fill="url(#rainLines)" opacity=".5"/>
+              <rect width="1440" height="760" fill="#d9dfcc" opacity=".08"/>
+            </g>
+
+            <g class="art art--lanes">
+              <rect width="1440" height="760" fill="url(#rainSky)"/>
+              <path d="M0 285 L182 194 L332 283 L494 135 L724 315 L913 201 L1119 316 L1298 171 L1440 260 L1440 478 L0 478Z" fill="#46645f" opacity=".86"/>
+              <path d="M0 468 L310 371 L566 424 L838 330 L1122 412 L1440 352 L1440 760 L0 760Z" fill="#63716b"/>
+              <path d="M0 438 L233 316 L468 426 L698 274 L966 422 L1240 301 L1440 370 L1440 534 L0 534Z" fill="#354d4d"/>
+              <path d="M0 480 L228 362 L450 478 L450 585 L0 655Z" fill="#8d654c"/>
+              <path d="M24 451 L230 308 L456 431 L456 456 L235 379 L24 520Z" fill="#273d3d"/>
+              <path d="M957 406 L1200 308 L1440 390 L1440 607 L954 526Z" fill="#765742"/>
+              <path d="M932 425 L1194 273 L1440 365 L1440 397 L1205 337 L932 478Z" fill="#293f41"/>
+              <g fill="#d4c69e"><rect x="125" y="482" width="58" height="48"/><rect x="274" y="442" width="48" height="50"/><rect x="1080" y="454" width="52" height="46"/><rect x="1224" y="415" width="52" height="50"/></g>
+              <g fill="#2f5556"><rect x="134" y="491" width="40" height="29"/><rect x="282" y="451" width="32" height="31"/><rect x="1088" y="464" width="35" height="27"/><rect x="1233" y="425" width="34" height="31"/></g>
+              <path d="M261 760 L724 420 L1198 760Z" fill="#735e50"/>
+              <path d="M363 760 L742 454 L1129 760Z" fill="#b19d7d" opacity=".63"/>
+              <path d="M465 760 L751 501 L1043 760Z" fill="#496b6d" opacity=".37"/>
+              <g stroke="#cfc8aa" stroke-width="5" opacity=".48"><path d="M0 635 L342 568"/><path d="M1098 558 L1440 634"/></g>
+              <g transform="translate(810 447)"><path d="M0 0 V165" stroke="#2b3e42" stroke-width="8"/><path d="M-24 17 Q0 -16 24 17 L18 44 H-18Z" fill="#30474a"/><path d="M-11 24 H11 V38 H-11Z" fill="#e3a55f"/></g>
+              <g stroke="#38544f" stroke-width="8" opacity=".9"><path d="M74 379 L322 570"/><path d="M131 350 L379 541"/><path d="M1058 372 L1310 563"/></g>
+              <rect width="1440" height="760" fill="url(#rainLines)" opacity=".66"/>
+            </g>
+
+            <g class="art art--seawall">
+              <rect width="1440" height="760" fill="url(#eveningSky)"/>
+              <circle cx="1078" cy="176" r="84" fill="#edc77f" opacity=".88"/>
+              <path d="M0 365 L183 269 L349 356 L512 187 L708 380 L901 261 L1100 367 L1274 217 L1440 323 L1440 498 L0 498Z" fill="#425e63" opacity=".86"/>
+              <path d="M0 441 C211 421 316 451 500 430 S807 404 1003 438 S1244 417 1440 435 V642 H0Z" fill="url(#sea)"/>
+              <path d="M0 478 C173 446 302 488 479 463 S775 449 954 480 S1221 447 1440 470" fill="none" stroke="#e3cc9d" stroke-width="5" opacity=".64"/>
+              <path d="M0 519 C174 492 304 531 498 505 S761 494 934 522 S1219 492 1440 514" fill="none" stroke="#abc5bd" stroke-width="4" opacity=".56"/>
+              <path d="M0 546 L1440 440 L1440 760 L0 760Z" fill="#53645f"/>
+              <path d="M0 581 L1440 469 L1440 572 L0 692Z" fill="#a69a82"/>
+              <path d="M0 602 L1440 495" fill="none" stroke="#eee0bb" stroke-width="6" opacity=".7"/>
+              <path d="M0 699 L1440 564" fill="none" stroke="#384b4d" stroke-width="13" opacity=".78"/>
+              <g transform="translate(212 374)"><rect x="0" y="54" width="141" height="103" fill="#735746"/><path d="M-15 61 L70 -5 L157 61Z" fill="#2d4745"/><path d="M22 84 H52 M87 84 H117" stroke="#dac494" stroke-width="15"/><path d="M38 73 V114 M102 73 V114" stroke="#314e50" stroke-width="17"/></g>
+              <g transform="translate(935 282)"><path d="M0 0 V279" stroke="#263d40" stroke-width="10"/><path d="M-27 20 Q0 -16 27 20 L20 50 H-20Z" fill="#2d4748"/><path d="M-13 27 H13 V45 H-13Z" fill="#edaf62"/><circle cx="0" cy="37" r="42" fill="#e8a555" opacity=".16" filter="url(#soften)"/></g>
+              <g transform="translate(1280 420)"><path d="M0 0 V108" stroke="#2b4345" stroke-width="9"/><path d="M-29 17 Q0 -15 29 17 L20 43 H-20Z" fill="#304848"/><path d="M-12 22 H12 V36 H-12Z" fill="#e5aa5e"/></g>
+              <path d="M1127 580 C1170 533 1211 530 1254 575" fill="none" stroke="#2a4447" stroke-width="20"/>
+              <path d="M1164 548 L1186 519 L1202 557" fill="#2a4447"/>
+            </g>
+          </svg>
+          <div class="grain" aria-hidden="true"></div>
+
+          <button class="hotspot hotspot--timetable" data-clue="timetable" type="button" aria-label="Inspect the altered timetable">
+            <span class="hotspot-ring"></span><span>Timetable</span>
+          </button>
+          <button class="hotspot hotspot--porter" data-clue="porter" type="button" aria-label="Speak to the station porter">
+            <span class="hotspot-ring"></span><span>Porter</span>
+          </button>
+          <button class="hotspot hotspot--ticket" data-clue="ticket" type="button" aria-label="Inspect the ticket on the bench">
+            <span class="hotspot-ring"></span><span>Ticket</span>
+          </button>
+
+          <button class="player" id="player" type="button" aria-label="Your character. Click scenery to walk.">
+            <span class="player-head"></span><span class="player-coat"></span><span class="player-umbrella"></span>
+          </button>
+          <span class="destination-marker" id="destination-marker" aria-hidden="true"></span>
+          <p class="move-hint" id="move-hint">Choose a marked point of interest.</p>
+        </section>
+
+        <footer class="scene-caption">
+          <div>
+            <p class="eyebrow" id="scene-time">Early spring · 6:18 AM</p>
+            <h2 id="scene-title">Station platform</h2>
+          </div>
+          <p id="scene-description">A single train waits beyond the mist. Someone’s departure has been carefully crossed out.</p>
+        </footer>
+      </section>
+
+      <aside class="detail-panel" id="detail-panel" aria-live="polite" aria-label="Observation">
+        <button class="panel-close" id="detail-close" type="button" aria-label="Close observation">×</button>
+        <p class="eyebrow" id="detail-kicker">Observation</p>
+        <h2 id="detail-title">The platform is waiting.</h2>
+        <p id="detail-copy">Choose a place to look more closely. The smallest ordinary things are beginning to disagree.</p>
+        <button class="panel-action" id="detail-action" type="button" hidden>Record clue</button>
+      </aside>
+
+      <dialog class="journal-panel" id="journal-panel" aria-labelledby="journal-title">
+        <div class="journal-header">
+          <div>
+            <p class="eyebrow">Field notes</p>
+            <h2 id="journal-title">The things that do not fit</h2>
+          </div>
+          <button class="panel-close" id="journal-close" type="button" aria-label="Close journal">×</button>
+        </div>
+        <ol class="journal-list" id="journal-list">
+          <li class="journal-empty">Nothing recorded yet. Look carefully, and let the town answer in its own time.</li>
+        </ol>
+        <div class="journal-footer">
+          <p id="journal-summary">Three small observations may explain why the signal lamp went dark.</p>
+          <button class="panel-action" id="journal-return" type="button">Return to the town</button>
+        </div>
+      </dialog>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>
