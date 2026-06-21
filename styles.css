@@ -534,3 +534,67 @@ h1 {
 @media (max-width: 650px) {
   .game-frame, .scene { min-height: 600px; height: 100vh; }.top-bar { padding: 18px 20px; }.top-actions { gap: 8px; }.location-nav { top: 77px; left: 12px; gap: 2px; }.location-button { padding: 6px 8px; font-size: .59rem; }.story-strip { right: 16px; bottom: 112px; width: calc(100% - 32px); }.scene-caption { min-height: 98px; padding: 16px 20px; }.scene-caption > p { display: none; }.detail-panel { right: 0; bottom: 0; width: 100%; }.hotspot { opacity: 1; transform: none; width: 98px; }.move-hint { display: none; }
 }
+
+/* ---- Layout fixes: overlap cleanup (June 2026) ---- */
+
+/* 1. Move the move-hint to the left, above the scene-caption, so it never
+      collides with the story-strip / detail-panel column on the right. */
+.move-hint {
+  right: auto;
+  bottom: 122px;
+  left: clamp(22px, 4vw, 58px);
+}
+
+/* 2. Resting state for hotspots on desktop: a quiet ring so players can see
+      where interactions live before they mouse over. Hover/focus stays vivid. */
+@media (hover: hover) and (min-width: 651px) {
+  .hotspot {
+    opacity: 0.55;
+    transform: translateY(0);
+    background: rgba(26, 45, 48, 0.55);
+    border-color: rgba(245, 238, 220, 0.4);
+  }
+  .scene:hover .hotspot,
+  .hotspot:hover,
+  .hotspot:focus-visible {
+    opacity: 1;
+    background: rgba(26, 45, 48, 0.85);
+    border-color: rgba(245, 238, 220, 0.7);
+  }
+  .hotspot:hover { background: var(--warm); }
+}
+
+/* 3. When the detail panel is open, fade the story strip and scene caption so
+      the right-side stack doesn't fight itself. The detail panel takes focus.
+      Note: .detail-panel is a sibling of .game-frame inside .game-shell, so
+      we scope :has() at the .game-shell level. */
+.game-shell:has(.detail-panel.is-open) .story-strip,
+.game-shell:has(.detail-panel.is-open) .scene-caption > p {
+  opacity: 0;
+  pointer-events: none;
+}
+.story-strip,
+.scene-caption > p {
+  transition: opacity 220ms ease;
+}
+
+/* 4. Reposition the right-side hotspot on each scene so it does not sit
+      underneath the detail panel's footprint (right column, bottom 140px+). */
+.hotspot--ticket { right: 18%; bottom: 42%; }
+.scene--lanes .hotspot--ticket { right: 14%; bottom: 44%; }
+.scene--seawall .hotspot--ticket { right: 13%; bottom: 46%; }
+
+/* 5. Tighten the move-hint typography so it reads as a quiet caption. */
+.move-hint {
+  max-width: 240px;
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 650px) {
+  /* On mobile the detail panel is full-width at the bottom; nothing else
+     overlaps it, so we keep the existing mobile rules above untouched. */
+  .hotspot--ticket,
+  .scene--lanes .hotspot--ticket,
+  .scene--seawall .hotspot--ticket { bottom: 22%; }
+}
